@@ -64,13 +64,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/6757f8df8145d50c5fc3174d",
+							"raw": "http://localhost/users/users/6757f8df8145d50c5fc3174d",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
 							"path": [
+								"users",
 								"users",
 								"6757f8df8145d50c5fc3174d"
 							]
@@ -84,15 +84,43 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/6757f8df8145d50c5fc3174d",
+							"raw": "http://localhost/users/health",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
 							"path": [
 								"users",
-								"6757f8df8145d50c5fc3174d"
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test2@test.test\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/users/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"users",
+								"users",
+								"login"
 							]
 						}
 					},
@@ -176,7 +204,18 @@
 					"name": "Health",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost/carts/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"carts",
+								"health"
+							]
+						}
 					},
 					"response": []
 				}
@@ -191,14 +230,84 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3003/health",
+							"raw": "http://localhost/orders/health",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3003",
 							"path": [
+								"orders",
 								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\": \"675a0f89873e480e06ff2359\",\n    \"totalAmount\": 13\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/orders/orders/675a0ce5864adfe5d3826b9b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"orders",
+								"orders",
+								"675a0ce5864adfe5d3826b9b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/orders/orders/675a0ce5864adfe5d3826b9b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"orders",
+								"orders",
+								"675a0ce5864adfe5d3826b9b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/orders/orders/675a0f8f869fb2baee51d4c3/pay",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"orders",
+								"orders",
+								"675a0f8f869fb2baee51d4c3",
+								"pay"
 							]
 						}
 					},

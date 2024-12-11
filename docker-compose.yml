@@ -1,13 +1,19 @@
 services:
-  api-gateway:
-    build:
-      context: ./api-gateway
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--entrypoints.web.address=:80" # Port HTTP
+      - "--providers.docker=true" # Active la détection automatique des conteneurs Docker
+      - "--api.dashboard=true" # Active le tableau de bord Traefik
+      - "--api.insecure=true"
     ports:
-      - "3000:3000"
-    depends_on:
-      - user
-      - cart
-      - order
+      - "80:80" # Port HTTP
+      - "9000:9000" # Tableau de bord Traefik
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock" # Nécessaire pour détecter les conteneurs Docker
+    labels:
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
     networks:
       - mynetwork
 
@@ -26,6 +32,11 @@ services:
         condition: service_healthy
     networks:
       - mynetwork
+    labels:
+      - "traefik.http.routers.user.rule=PathPrefix(`/users`)"
+      - "traefik.http.middlewares.user-stripprefix.stripprefix.prefixes=/users"
+      - "traefik.http.routers.user.middlewares=user-stripprefix"
+      - "traefik.http.services.user.loadbalancer.server.port=3001"
 
   cart:
     build:
@@ -42,6 +53,11 @@ services:
         condition: service_healthy
     networks:
       - mynetwork
+    labels:
+      - "traefik.http.routers.cart.rule=PathPrefix(`/carts`)"
+      - "traefik.http.middlewares.cart-stripprefix.stripprefix.prefixes=/carts"
+      - "traefik.http.routers.cart.middlewares=cart-stripprefix"
+      - "traefik.http.services.cart.loadbalancer.server.port=3002"
 
   order:
     build:
@@ -58,6 +74,11 @@ services:
         condition: service_healthy
     networks:
       - mynetwork
+    labels:
+      - "traefik.http.routers.order.rule=PathPrefix(`/orders`)"
+      - "traefik.http.middlewares.order-stripprefix.stripprefix.prefixes=/orders"
+      - "traefik.http.routers.order.middlewares=order-stripprefix"
+      - "traefik.http.services.order.loadbalancer.server.port=3003"
 
   mongo:
     image: mongo:latest
@@ -70,7 +91,7 @@ services:
       - mongo-data:/data/db
 
   rabbitmq:
-    image: rabbitmq:4
+    image: rabbitmq:management
     container_name: rabbitmq
     ports:
       - "5672:5672"
