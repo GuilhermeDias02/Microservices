@@ -3,12 +3,11 @@ const amqp = require('amqplib/callback_api');
 let channel;
 let connection;
 
-// Initialize RabbitMQ
 function connectToRabbitMQ() {
     amqp.connect('amqp://rabbitmq', (err, conn) => {
         if (err) {
             console.error('Failed to connect to RabbitMQ:', err);
-            setTimeout(connectToRabbitMQ, 5000); // Retry after 5 seconds
+            setTimeout(connectToRabbitMQ, 5000);
             return;
         }
         connection = conn;
@@ -20,11 +19,8 @@ function connectToRabbitMQ() {
                 process.exit(1);
             }
             channel = ch;
-            channel.assertExchange('serviceExchange', 'direct', { durable: false });
 
-            // Queue for orders
             channel.assertQueue('orderQueue', { durable: false });
-            // channel.bindQueue('orderQueue', 'serviceExchange', 'order.created');
 
             channel.consume('orderQueue', msg => {
                 if (msg.content) {
@@ -46,7 +42,6 @@ function connectToRabbitMQ() {
     });
 }
 
-// Sends a message to RabbitMQ
 function sendMessageToQueue(queueName, message) {
     if (!channel) {
         console.error('Cannot send message, RabbitMQ channel not initialized.');
@@ -57,7 +52,6 @@ function sendMessageToQueue(queueName, message) {
     return true;
 }
 
-// Connect to RabbitMQ when the app starts
 connectToRabbitMQ();
 
 module.exports = {

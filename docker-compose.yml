@@ -3,14 +3,14 @@ services:
     image: traefik:v2.10
     command:
       - "--entrypoints.web.address=:80" # Port HTTP
-      - "--providers.docker=true" # Active la détection automatique des conteneurs Docker
-      - "--api.dashboard=true" # Active le tableau de bord Traefik
+      - "--providers.docker=true" # Activate Docker containers detection
+      - "--api.dashboard=true" # Activate dashboard Traefik
       - "--api.insecure=true"
     ports:
-      - "80:80" # Port HTTP
-      - "9000:9000" # Tableau de bord Traefik
+      - "80:80" # HTTP port
+      - "9000:9000" # dashboard Traefik
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock" # Nécessaire pour détecter les conteneurs Docker
+      - "/var/run/docker.sock:/var/run/docker.sock" # detect Docker containers
     labels:
       - "traefik.http.routers.traefik-dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"

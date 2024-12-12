@@ -27,13 +27,11 @@ exports.getOrder = async (req, res) => {
 exports.payOrder = async (req, res) => {
     const orderId = req.params.id;
     try {
-        // Assume the payment process is handled here and is successful
         const order = await Order.findByIdAndUpdate(orderId, { status: 'paid' }, { new: true });
         if (!order) {
             return res.status(404).json({ message: 'Order not found' });
         }
 
-        // Notify other microservices about the order payment.
         const message = {
             userId: order.userId,
             orderId: order._id,

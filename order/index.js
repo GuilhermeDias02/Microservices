@@ -5,7 +5,6 @@ const apiRouter = require('./routes');
 const port = 3003;
 app.use(express.json());
 
-// Connexion à MongoDB
 mongoose.connect('mongodb://mongo:27017/orders-db', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB:', err));

@@ -4,7 +4,6 @@ const Cart = require("../models/Cart");
 let channel;
 let connection;
 
-// Initialize RabbitMQ
 function connectToRabbitMQ() {
     amqp.connect('amqp://rabbitmq', (err, conn) => {
         if (err) {
@@ -31,18 +30,6 @@ function connectToRabbitMQ() {
                 }
             });
 
-            // // 3. Bind cartQueue to the serviceExchange with routing key 'cart.updated'
-            // channel.bindQueue('cartQueue', 'serviceExchange', 'cart.updated', {}, (err, ok) => {
-            //     if (err) {
-            //         console.error('Error binding cartQueue to exchange:', err);
-            //     } else {
-            //         console.log(
-            //             'cartQueue successfully bound to serviceExchange with routing key "cart.updated".'
-            //         );
-            //     }
-            // });
-
-            // 4. Consume messages
             console.log('Starting to consume messages from cartQueue...');
             channel.consume(
                 'cartQueue',
@@ -85,7 +72,6 @@ function sendMessageToQueue(queueName, message) {
     return true;
 }
 
-// Connect to RabbitMQ when the app starts
 connectToRabbitMQ();
 
 module.exports = {
