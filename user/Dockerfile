@@ -17,7 +17,7 @@ COPY . .
 EXPOSE 3001
 
 # Define environment variable for MongoDB and RabbitMQ connection strings
-ENV MONGO_URL=mongodb://mongodb:27017/users-db
+ENV MONGO_URL=mongodb://mongo-users:27017:27017/users-db
 ENV RABBITMQ_URL=amqp://rabbitmq
 
 # Start the application
