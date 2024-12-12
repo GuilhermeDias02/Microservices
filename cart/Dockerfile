@@ -17,7 +17,7 @@ COPY . .
 EXPOSE 3002
 
 # Define environment variables for MongoDB and RabbitMQ connection strings
-ENV MONGO_URL=mongodb://mongodb:27017/cart-db
+ENV MONGO_URL=mongodb://mongo-carts:27018:2017/cart-db
 ENV RABBITMQ_URL=amqp://rabbitmq
 
 # Start the application

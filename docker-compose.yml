@@ -23,10 +23,10 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - MONGO_URL=mongodb://mongo:27017/users-db
+      - MONGO_URL=mongodb://mongo-users:27017:27017/users-db
       - RABBITMQ_URL=amqp://rabbitmq
     depends_on:
-      mongo:
+      mongo-users:
         condition: service_started
       rabbitmq:
         condition: service_healthy
@@ -44,10 +44,10 @@ services:
     ports:
       - "3002:3002"
     environment:
-      - MONGO_URL=mongodb://mongo:27017/cart-db
+      - MONGO_URL=mongodb://mongo-carts:27018:27017/cart-db
       - RABBITMQ_URL=amqp://rabbitmq
     depends_on:
-      mongo:
+      mongo-carts:
         condition: service_started
       rabbitmq:
         condition: service_healthy
@@ -65,10 +65,10 @@ services:
     ports:
       - "3003:3003"
     environment:
-      - MONGO_URL=mongodb://mongo:27017/orders-db
+      - MONGO_URL=mongodb://mongo-orders:27019:27017/orders-db
       - RABBITMQ_URL=amqp://rabbitmq
     depends_on:
-      mongo:
+      mongo-orders:
         condition: service_started
       rabbitmq:
         condition: service_healthy
@@ -80,15 +80,35 @@ services:
       - "traefik.http.routers.order.middlewares=order-stripprefix"
       - "traefik.http.services.order.loadbalancer.server.port=3003"
 
-  mongo:
+  mongo-users:
     image: mongo:latest
-    container_name: mongo
+    container_name: mongo-users
     ports:
-      - "27017:27017"
+      - 27017:27017
     networks:
       - mynetwork
     volumes:
-      - mongo-data:/data/db
+      - mongo-users-data:/data/db
+  
+  mongo-carts:
+    image: mongo:latest
+    container_name: mongo-carts
+    ports:
+      - 27018:27017
+    networks:
+      - mynetwork
+    volumes:
+      - mongo-carts-data:/data/db
+
+  mongo-orders:
+    image: mongo:latest
+    container_name: mongo-orders
+    ports:
+      - 27019:27017
+    networks:
+      - mynetwork
+    volumes:
+      - mongo-orders-data:/data/db
 
   rabbitmq:
     image: rabbitmq:management
@@ -124,5 +144,7 @@ networks:
     driver: bridge
 
 volumes:
-  mongo-data:
+  mongo-users-data:
+  mongo-carts-data:
+  mongo-orders-data:
   uptime-kuma:

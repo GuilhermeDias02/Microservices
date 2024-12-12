@@ -6,7 +6,7 @@ const port = 3001;
 
 app.use(express.json());
 
-mongoose.connect('mongodb://mongo:27017/users-db', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://mongo-users:27017/users-db', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB:', err));
 

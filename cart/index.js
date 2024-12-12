@@ -5,7 +5,7 @@ const apiRouter = require('./routes');
 const port = 3002;
 app.use(express.json());
 
-mongoose.connect('mongodb://mongo:27017/cart-db', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://mongo-carts:27017/cart-db', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB:', err));
 
