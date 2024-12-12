@@ -25,6 +25,10 @@
 
  - Uptime-kuma: http://localhost:3010/dashboard
 
+ - Rabbitmq: http://localhost:15672/#/
+   - user: guest
+   - password: guest
+
 ---
 
 ## Documentation
