@@ -46,6 +46,11 @@ exports.login = async (req, res) => {
             expiresIn: '1h'
         };
 
+        const sent = sendMessageToQueue('notificationQueue', { email, name, message: 'You have been logged in' });
+        if (!sent) {
+            console.warn('Failed to send message to RabbitMQ. Logging but continuing...');
+        }
+
         const token = jwt.sign(userData, secret, jwtData);
 
         res.status(200).send({
@@ -71,7 +76,7 @@ exports.getUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        res.json(user);
+        res.json({user: { id: user._id, email: user.email, name: user.name }});
     } catch (err) {
         res.status(500).json({ message: 'Error retrieving user', error: err.message });
     }
@@ -79,7 +84,7 @@ exports.getUser = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().select('-password');
         res.json(users);
     } catch (err) {
         res.status(500).json({ message: 'Error fetching users', error: err.message });

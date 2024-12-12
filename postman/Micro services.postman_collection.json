@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"test@test.test\",\n    \"name\": \"test\"\n}",
+							"raw": "{\n    \"email\": \"test@test.test\",\n    \"name\": \"test\",\n    \"password\": \"test\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,14 +24,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/register",
+							"raw": "http://localhost/users/api/register",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
 							"path": [
 								"users",
+								"api",
 								"register"
 							]
 						}
@@ -44,14 +44,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/",
+							"raw": "http://localhost/users/api/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
 							"path": [
 								"users",
+								"api",
 								""
 							]
 						}
@@ -64,14 +64,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/users/users/6757f8df8145d50c5fc3174d",
+							"raw": "http://localhost/users/api/6757f8df8145d50c5fc3174d",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"users",
-								"users",
+								"api",
 								"6757f8df8145d50c5fc3174d"
 							]
 						}
@@ -104,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"test2@test.test\",\n    \"password\": \"test\"\n}",
+							"raw": "{\n    \"email\": \"test@test.test\",\n    \"password\": \"test\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -112,14 +112,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/users/users/login",
+							"raw": "http://localhost/users/api/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"users",
-								"users",
+								"api",
 								"login"
 							]
 						}
@@ -137,15 +137,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/carts/6757f8df8145d50c5fc3174d",
+							"raw": "http://localhost/carts/api/675a0ce5864adfe5d3826b9b",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
 							"path": [
 								"carts",
-								"6757f8df8145d50c5fc3174d"
+								"api",
+								"675a0ce5864adfe5d3826b9b"
 							]
 						}
 					},
@@ -166,15 +166,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/carts/6757f8df8145d50c5fc3174d",
+							"raw": "http://localhost/carts/api/675a0ce5864adfe5d3826b9b",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
 							"path": [
 								"carts",
-								"6757f8df8145d50c5fc3174d"
+								"api",
+								"675a0ce5864adfe5d3826b9b"
 							]
 						}
 					},
@@ -186,14 +186,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/carts/6757f8df8145d50c5fc3174d",
+							"raw": "http://localhost/carts/api/6757f8df8145d50c5fc3174d",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
 							"path": [
 								"carts",
+								"api",
 								"6757f8df8145d50c5fc3174d"
 							]
 						}
@@ -258,14 +258,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/orders/orders/675a0ce5864adfe5d3826b9b",
+							"raw": "http://localhost/orders/api/675a0ce5864adfe5d3826b9b",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"orders",
-								"orders",
+								"api",
 								"675a0ce5864adfe5d3826b9b"
 							]
 						}
@@ -278,14 +278,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/orders/orders/675a0ce5864adfe5d3826b9b",
+							"raw": "http://localhost/orders/api/675a0ce5864adfe5d3826b9b",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"orders",
-								"orders",
+								"api",
 								"675a0ce5864adfe5d3826b9b"
 							]
 						}
@@ -298,14 +298,14 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/orders/orders/675a0f8f869fb2baee51d4c3/pay",
+							"raw": "http://localhost/orders/api/675a0f8f869fb2baee51d4c3/pay",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"orders",
-								"orders",
+								"api",
 								"675a0f8f869fb2baee51d4c3",
 								"pay"
 							]

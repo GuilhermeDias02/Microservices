@@ -11,7 +11,7 @@ mongoose.connect('mongodb://mongo:27017/users-db', { useNewUrlParser: true, useU
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB:', err));
 
-app.use('/users', apiRouter);
+app.use('/api', apiRouter);
 
 app.get('/health', (req, res) => {
     res.send({message: 'Up and running'})

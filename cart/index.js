@@ -10,7 +10,7 @@ mongoose.connect('mongodb://mongo:27017/cart-db', { useNewUrlParser: true, useUn
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB:', err));
 
-app.use('/carts', apiRouter)
+app.use('/api', apiRouter)
 
 app.get('/health', (req, res) => {
     res.send({message: 'Up and running'})
