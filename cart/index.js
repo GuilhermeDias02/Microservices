@@ -13,7 +13,7 @@ mongoose.connect('mongodb://mongo:27017/cart-db', { useNewUrlParser: true, useUn
 app.use('/carts', apiRouter)
 
 app.get('/health', (req, res) => {
-    res.json({message: 'Up and running'})
+    res.send({message: 'Up and running'})
 })
 
 app.listen(port, () => {
