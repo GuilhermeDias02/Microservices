@@ -1,0 +1,150 @@
+services:
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--entrypoints.web.address=:80" # Port HTTP
+      - "--providers.docker=true" # Activate Docker containers detection
+      - "--api.dashboard=true" # Activate dashboard Traefik
+      - "--api.insecure=true"
+    ports:
+      - "80:80" # HTTP port
+      - "9000:9000" # dashboard Traefik
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock" # detect Docker containers
+    labels:
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
+    networks:
+      - mynetwork
+
+  user:
+    build:
+      context: ./user
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URL=mongodb://mongo-users:27017:27017/users-db
+      - RABBITMQ_URL=amqp://rabbitmq
+    depends_on:
+      mongo-users:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - mynetwork
+    labels:
+      - "traefik.http.routers.user.rule=PathPrefix(`/users`)"
+      - "traefik.http.middlewares.user-stripprefix.stripprefix.prefixes=/users"
+      - "traefik.http.routers.user.middlewares=user-stripprefix"
+      - "traefik.http.services.user.loadbalancer.server.port=3001"
+
+  cart:
+    build:
+      context: ./cart
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_URL=mongodb://mongo-carts:27018:27017/cart-db
+      - RABBITMQ_URL=amqp://rabbitmq
+    depends_on:
+      mongo-carts:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - mynetwork
+    labels:
+      - "traefik.http.routers.cart.rule=PathPrefix(`/carts`)"
+      - "traefik.http.middlewares.cart-stripprefix.stripprefix.prefixes=/carts"
+      - "traefik.http.routers.cart.middlewares=cart-stripprefix"
+      - "traefik.http.services.cart.loadbalancer.server.port=3002"
+
+  order:
+    build:
+      context: ./order
+    ports:
+      - "3003:3003"
+    environment:
+      - MONGO_URL=mongodb://mongo-orders:27019:27017/orders-db
+      - RABBITMQ_URL=amqp://rabbitmq
+    depends_on:
+      mongo-orders:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - mynetwork
+    labels:
+      - "traefik.http.routers.order.rule=PathPrefix(`/orders`)"
+      - "traefik.http.middlewares.order-stripprefix.stripprefix.prefixes=/orders"
+      - "traefik.http.routers.order.middlewares=order-stripprefix"
+      - "traefik.http.services.order.loadbalancer.server.port=3003"
+
+  mongo-users:
+    image: mongo:latest
+    container_name: mongo-users
+    ports:
+      - 27017:27017
+    networks:
+      - mynetwork
+    volumes:
+      - mongo-users-data:/data/db
+  
+  mongo-carts:
+    image: mongo:latest
+    container_name: mongo-carts
+    ports:
+      - 27018:27017
+    networks:
+      - mynetwork
+    volumes:
+      - mongo-carts-data:/data/db
+
+  mongo-orders:
+    image: mongo:latest
+    container_name: mongo-orders
+    ports:
+      - 27019:27017
+    networks:
+      - mynetwork
+    volumes:
+      - mongo-orders-data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - mynetwork
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 6
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    ports:
+      - "3010:3001"
+    volumes:
+      - uptime-kuma:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - mynetwork
+    depends_on:
+      - user
+      - cart
+      - order
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mongo-users-data:
+  mongo-carts-data:
+  mongo-orders-data:
+  uptime-kuma:

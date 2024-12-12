@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "3c60b260-5e7d-447d-a3f6-d93614c18c12",
+		"name": "Micro services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40325379"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@test.test\",\n    \"name\": \"test\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/users/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"users",
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/users/api/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"users",
+								"api",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/users/api/6757f8df8145d50c5fc3174d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"users",
+								"api",
+								"6757f8df8145d50c5fc3174d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/users/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"users",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@test.test\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/users/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"users",
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "Get user's cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/carts/api/675a0ce5864adfe5d3826b9b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"carts",
+								"api",
+								"675a0ce5864adfe5d3826b9b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add item to cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": \"6757fef17fa9c4b366a74923\",\n    \"name\": \"test2\",\n    \"quantity\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/carts/api/675a0ce5864adfe5d3826b9b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"carts",
+								"api",
+								"675a0ce5864adfe5d3826b9b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user's cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/carts/api/6757f8df8145d50c5fc3174d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"carts",
+								"api",
+								"6757f8df8145d50c5fc3174d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/carts/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"carts",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/orders/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"orders",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\": \"675a0f89873e480e06ff2359\",\n    \"totalAmount\": 13\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/orders/api/675a0ce5864adfe5d3826b9b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"orders",
+								"api",
+								"675a0ce5864adfe5d3826b9b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/orders/api/675a0ce5864adfe5d3826b9b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"orders",
+								"api",
+								"675a0ce5864adfe5d3826b9b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/orders/api/675a0f8f869fb2baee51d4c3/pay",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"orders",
+								"api",
+								"675a0f8f869fb2baee51d4c3",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
